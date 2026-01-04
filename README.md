@@ -25,7 +25,8 @@ PackAI/
 │   ├── agent-skill-spec.md      # Skill 格式规范
 │   └── how-to-create-great-agent-skill.md  # Skill 设计指南
 ├── rules/                   # 通用规则
-│   └── general-rules.md         # 协作协议和编码规范
+│   ├── general-rule.md          # 协作协议和编码规范
+│   └── frontend-architecture-rule.md  # Vue3 前端架构规范
 └── skills/                  # Skills 集合
     ├── agent-builder/           # Agent 构建器
     ├── fast-search/             # 极速代码搜索

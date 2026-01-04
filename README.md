@@ -33,7 +33,8 @@ PackAI/
     ├── frontend-design/         # 前端设计
     ├── mcp-builder/             # MCP 服务器构建器
     ├── skill-creator/           # Skill 创建器
-    └── skill-judge/             # Skill 评审官
+    ├── skill-judge/             # Skill 评审官
+    └── UnrealCodeImitator/      # Unreal 源码学习与插件开发
 ```
 
 ---
@@ -48,6 +49,7 @@ PackAI/
 | **mcp-builder** | 构建 MCP 服务器的完整指南 | TypeScript/Python MCP 服务器开发 |
 | **skill-creator** | 创建高效 Skill 的指南 | 新建或更新 Agent Skill |
 | **skill-judge** | 多维度评估 Skill 设计质量 | 审查、审计、改进 SKILL.md |
+| **UnrealCodeImitator** | Unreal 源码学习与插件开发 | UE 源码分析、插件开发、自动编译迭代 |
 
 ---
 

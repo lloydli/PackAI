@@ -1,0 +1,22 @@
+<evaluation>
+   <qa_pair>
+      <question>计算 10,000 美元以 5% 年利率、按月复利投资 3 年后的复利。最终金额是多少美元（四舍五入到小数点后 2 位）？</question>
+      <answer>11614.72</answer>
+   </qa_pair>
+   <qa_pair>
+      <question>一个抛射物以 45 度角、50 m/s 的初速度发射。计算从发射点起 2 秒后它行进的总距离（以米为单位），假设 g=9.8 m/s²。四舍五入到小数点后 2 位。</question>
+      <answer>87.25</answer>
+   </qa_pair>
+   <qa_pair>
+      <question>一个球体的体积为 500 立方米。计算其表面积（平方米）。四舍五入到小数点后 2 位。</question>
+      <answer>304.65</answer>
+   </qa_pair>
+   <qa_pair>
+      <question>计算此数据集的总体标准差：[12, 15, 18, 22, 25, 30, 35]。四舍五入到小数点后 2 位。</question>
+      <answer>7.61</answer>
+   </qa_pair>
+   <qa_pair>
+      <question>计算氢离子浓度为 3.5 × 10^-5 M 的溶液的 pH 值。四舍五入到小数点后 2 位。</question>
+      <answer>4.46</answer>
+   </qa_pair>
+</evaluation>

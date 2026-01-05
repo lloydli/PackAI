@@ -11,7 +11,6 @@ enabled: true
 - 优先保证代码简洁易懂。
 - 别搞过度设计，简单实用就好。
 - 写代码时，要注意圈复杂度，函数尽量小，尽量可以复用，尽量不写重复代码。
-- 在写UE里的C++代码时，尤其是编辑器开发时，尽可能使用引擎封装更高级的接口，而不是直接使用引擎底层接口，例如尽可能使用各种封装好的蓝图函数库和各种Subsystem类接口，这些接口往往封装的更完善，形式也更统一。
 - 写代码时，注意模块设计，尽量使用设计模式。
 - 给我解释代码的时候，说人话，别拽专业术语。最好有图（mermaid风格）
 - 帮我实现的时候，需要给出原理，并给出执行步骤，最好有图（mermaid风格）
@@ -20,6 +19,19 @@ enabled: true
 - 给出的mermaid图，必须自检语法，可以被渲染，在暗黑主题上清晰可见
 - 给出的mermaid图，必须要可以被暗黑主题渲染清晰
 - 在终端中执行命令时，优先使用PowerShell语法进行，除非失败再尝试cmd命令语法
+
+# UnrealEngine C++开发协议（UnrealEngine C++ Development Protocol）
+当进行UnrealEngine C++相关开发时，必须遵守以下协议：
+1、尽可能使用引擎提供的High-Level接口，而不是Low-Level接口，例如尽可能使用各种封装好的蓝图函数库和各种Subsystem类接口，这些接口往往封装的更完善，形式也更统一。
+2、涉及到资产相关加载、拷贝、删除、重命名、检出、保存、是否存在检查、打开等相关操作时，优先使用UEditorAssetSubsystem和UAssetEditorSubsystem下面的方法来进行操作和处理，同时尽可能使用XXXLoadedAsset版本API。
+3、涉及到Actor相关拷贝、删除、选择、获取、创建、转换、替换等操作时，优先使用UEditorActorSubsystem下的方法来进行操作和处理。
+4、涉及到UStaticMesh和UStaticMeshActor相关操作时，优先考虑使用UStaticMeshEditorSubsystem、UMeshProcessingLibrary、FStaticMeshOperations、IMeshReductionManagerModule、IMeshUtilities、IMeshMergeUtilities等库里的方法来处理。
+5、涉及到Texture相关处理时，优先使用FImageCore、IImageWrapperModule、FImageUtils等库里的方法来处理。
+6、涉及编辑器关卡的新建、加载、保存、获取等相关操作时，优先使用ULevelEditorSubsystem下的方法来处理。
+7、涉及到渲染相关操作，尤其是Render Target（渲染目标）的管理和操作（创建、绘制、读取、导入导出到静态纹理）等相关操作时，优先使用UKismetRenderingLibrary下的方法来处理。
+8、涉及到各种常见通用操作，例如碰撞检测、重叠检测、调试绘制、属性动态/反射访问和设置时优先使用UKismetSystemLibrary下的方法来处理。
+9、涉及容器相关操作时，尽可能使用Algo算法库来进行操作（位于Runtime/Core/Public/Algo），AlgosTest.cpp文件有相关Algo算法的测试用例供你参考其用法。
+10、涉及到编辑器下获取选中资产、Actor，和内容浏览器相关交互，编辑器蓝图工具相关Tab页签创建、关闭、管理及编辑器工具资产（如EditorUtilityBlueprint）运行相关操作时，优先使用UEditorUtilityLibrary和UEditorUtilitySubsystem下的方法来处理。
  
 # 思维与工具使用协议（Thought and Tool Use Protocol）
 1、**结构化思考（Structured Thinking）**: 在分析和解决问题时，可以视情况使用 sequential-thinking 工具进行条理清晰、逻辑严谨的思考。

@@ -1,6 +1,6 @@
 ---
 name: agent-builder
-description: description: 设计和构建任意领域的 AI Agent。适用于以下场景：(1) 用户要求"创建一个 agent"、"构建一个助手"或"设计一个 AI 系统"； (2) 想要了解 agent 架构、agentic 模式或自主 AI； (3) 需要帮助处理能力、子 agent、规划或 skill 机制； (4) 询问 Claude Code、Cursor 或类似 agent 的内部原理； (5) 想要为业务、研究、创意或运营任务构建 agent； 关键词：agent、助手、自主、工作流、工具使用、多步骤、编排
+description: 设计和构建任意领域的 AI Agent。适用于以下场景：(1) 用户要求"创建一个 agent"、"构建一个助手"或"设计一个 AI 系统"； (2) 想要了解 agent 架构、agentic 模式或自主 AI； (3) 需要帮助处理能力、子 agent、规划或 skill 机制； (4) 询问 Claude Code、Cursor 或类似 agent 的内部原理； (5) 想要为业务、研究、创意或运营任务构建 agent； 关键词：agent、助手、自主、工作流、工具使用、多步骤、编排
 ---
 
 # Agent 构建器

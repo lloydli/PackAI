@@ -21,20 +21,23 @@ Skill 方式：编辑 SKILL.md → 保存 → 即时生效（$0，即时）
 
 ```
 PackAI/
+├── commands/                # 命令模板
+│   └── commit-push-pr.md        # Git 提交/PR 工作流命令
 ├── docs/                    # 文档
 │   ├── agent-skill-spec.md      # Skill 格式规范
 │   └── how-to-create-great-agent-skill.md  # Skill 设计指南
 ├── rules/                   # 通用规则
 │   ├── general-rule.md          # 协作协议和编码规范
 │   └── frontend-architecture-rule.md  # Vue3 前端架构规范
-└── skills/                  # Skills 集合
-    ├── agent-builder/           # Agent 构建器
-    ├── fast-search/             # 极速代码搜索
-    ├── frontend-design/         # 前端设计
-    ├── mcp-builder/             # MCP 服务器构建器
-    ├── skill-creator/           # Skill 创建器
-    ├── skill-judge/             # Skill 评审官
-    └── UnrealCodeImitator/      # Unreal 源码学习与插件开发
+├── skills/                  # Skills 集合
+│   ├── agent-builder/           # Agent 构建器
+│   ├── fast-search/             # 极速代码搜索
+│   ├── frontend-design/         # 前端设计
+│   ├── mcp-builder/             # MCP 服务器构建器
+│   ├── skill-creator/           # Skill 创建器
+│   ├── skill-judge/             # Skill 评审官
+│   └── UnrealCodeImitator/      # Unreal 源码学习与插件开发
+└── sync.bat                 # 同步工具脚本
 ```
 
 ---
@@ -112,3 +115,25 @@ Skill 的完整格式规范，包括：
 
 - [Anthropic Skills 官方仓库](https://github.com/anthropics/skills)
 - [shareAI-skills](https://github.com/shareAI-lab/shareAI-skills)
+
+---
+
+## 同步工具
+
+运行 `sync.bat` 可将 `commands`、`rules`、`skills` 同步到指定的 IDE 项目配置目录（如 `.codebuddy`）：
+
+```batch
+# 双击运行或命令行执行
+d:\PackAI\sync.bat
+
+# 按提示输入目标目录，例如：
+# C:\MyProject\.codebuddy
+```
+
+---
+
+## Commands 命令模板
+
+| 命令 | 描述 |
+|------|------|
+| **commit-push-pr** | 标准化 Git 提交/PR 工作流（读取 diff → 生成 commit message → PR 描述） |

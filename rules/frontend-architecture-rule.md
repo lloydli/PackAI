@@ -1,6 +1,7 @@
 ---
-title: 前端架构规范
 description: Vue3 应用开发的技术栈、架构模式和最佳实践指南
+alwaysApply: false
+enabled: true
 ---
 
 # 前端架构规范

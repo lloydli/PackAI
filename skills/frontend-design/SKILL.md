@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: Creates unique, production-grade frontend interfaces with exceptional design quality. Use when user asks to build web components, pages, materials, posters, or applications (e.g., websites, landing pages, dashboards, React components, HTML/CSS layouts, or styling/beautifying any web UI). Generates creative, polished code and UI designs that avoid mediocre AI aesthetics.
+description: 能够打造设计质量卓越、适用于实际生产环境的前端界面。当用户需要开发网页组件、页面、宣传材料、海报或各类应用程序时，可使用该工具（例如网站、登录页面、控制面板、React组件、HTML/CSS布局，或用于优化任何网页用户界面的设计）。该工具生成的代码与用户界面设计既富有创意，又经过精心打磨，完全避免了AI生成的设计中可能出现的平庸或粗糙之处。
 ---
 
 # Frontend Design Skill

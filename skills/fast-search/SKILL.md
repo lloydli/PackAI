@@ -1,6 +1,6 @@
 ---
 name: fast-search
-description: Accelerates full-text search across large codebases using smart strategies - parallel searches, pattern optimization, file filtering, and result aggregation. Optimized for instant execution with minimal context loading.
+description: 通过运用智能搜索策略，能够加速对大型代码库进行全文搜索——这些策略包括并行搜索、模式优化、文件过滤以及结果汇总。该系统经过优化，能够以最短的时间完成搜索任务，同时所需加载的上下文信息也最少。
 ---
 
 # Fast Search - 极速代码搜索

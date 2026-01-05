@@ -4,7 +4,8 @@ setlocal EnableDelayedExpansion
 
 echo ============================================
 echo   PackAI 同步工具
-echo   将 commands、rules、skills 同步到目标目录
+echo   将 commands、rules、skills、mcp.json
+echo   同步到用户目录下的 .codebuddy
 echo ============================================
 echo.
 
@@ -12,28 +13,14 @@ echo.
 set "SOURCE_DIR=%~dp0"
 set "SOURCE_DIR=%SOURCE_DIR:~0,-1%"
 
-:: 提示用户输入目标配置目录
-set /p "TARGET_DIR=请输入目标配置目录路径 (例如: C:\MyProject\.codebuddy): "
+:: 设置目标目录为用户目录下的 .codebuddy
+set "TARGET_DIR=%USERPROFILE%\.codebuddy"
 
-:: 检查用户是否输入
-if "%TARGET_DIR%"=="" (
-    echo [错误] 未输入目标目录，退出。
-    pause
-    exit /b 1
-)
-
-:: 检查目标目录是否存在
+:: 检查目标目录是否存在，不存在则自动创建
 if not exist "%TARGET_DIR%" (
-    echo [警告] 目标目录不存在: %TARGET_DIR%
-    set /p "CREATE_DIR=是否创建该目录? (Y/N): "
-    if /i "!CREATE_DIR!"=="Y" (
-        mkdir "%TARGET_DIR%"
-        echo [信息] 已创建目录: %TARGET_DIR%
-    ) else (
-        echo [信息] 已取消操作。
-        pause
-        exit /b 0
-    )
+    echo [信息] 目标目录不存在，正在创建: %TARGET_DIR%
+    mkdir "%TARGET_DIR%"
+    echo [完成] 目录已创建
 )
 
 echo.
@@ -66,6 +53,15 @@ if exist "%SOURCE_DIR%\skills" (
     echo [完成] skills 同步成功
 ) else (
     echo [跳过] skills 目录不存在
+)
+
+:: 同步 mcp.json 文件
+if exist "%SOURCE_DIR%\mcp.json" (
+    echo [同步] mcp.json ...
+    copy /Y "%SOURCE_DIR%\mcp.json" "%TARGET_DIR%\mcp.json" >nul
+    echo [完成] mcp.json 同步成功
+) else (
+    echo [跳过] mcp.json 文件不存在
 )
 
 echo.

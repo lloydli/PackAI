@@ -3,73 +3,111 @@ chcp 65001 >nul
 setlocal EnableDelayedExpansion
 
 echo ============================================
-echo   PackAI 同步工具
-echo   将 commands、rules、skills 同步到目标目录
+echo   PackAI Sync Tool
+echo   Sync commands/rules/skills to project dirs
+echo   Sync mcp.json to user config dir
 echo ============================================
-echo.
+echo(
 
 :: 获取脚本所在目录（源目录）
 set "SOURCE_DIR=%~dp0"
 set "SOURCE_DIR=%SOURCE_DIR:~0,-1%"
 
-:: 提示用户输入目标配置目录
-set /p "TARGET_DIR=请输入目标配置目录路径 (例如: C:\MyProject\.codebuddy): "
+:: 配置文件路径
+set "CONFIG_FILE=%SOURCE_DIR%\config\sync_project_paths.txt"
 
-:: 检查用户是否输入
-if "%TARGET_DIR%"=="" (
-    echo [错误] 未输入目标目录，退出。
+:: 检查配置文件是否存在
+if not exist "%CONFIG_FILE%" (
+    echo [Error] Config file not found: %CONFIG_FILE%
+    echo [Tip] Add project paths to config\sync_project_paths.txt
     pause
     exit /b 1
 )
 
-:: 检查目标目录是否存在
-if not exist "%TARGET_DIR%" (
-    echo [警告] 目标目录不存在: %TARGET_DIR%
-    set /p "CREATE_DIR=是否创建该目录? (Y/N): "
-    if /i "!CREATE_DIR!"=="Y" (
-        mkdir "%TARGET_DIR%"
-        echo [信息] 已创建目录: %TARGET_DIR%
+echo [Info] Source: %SOURCE_DIR%
+echo [Info] Config: %CONFIG_FILE%
+echo(
+
+:: Sync mcp.json to user .codebuddy dir
+set "USER_CODEBUDDY=%USERPROFILE%\.codebuddy"
+if not exist "%USER_CODEBUDDY%" (
+    mkdir "%USER_CODEBUDDY%"
+    echo [Info] Created user config dir: %USER_CODEBUDDY%
+)
+if exist "%SOURCE_DIR%\mcp.json" (
+    copy /Y "%SOURCE_DIR%\mcp.json" "%USER_CODEBUDDY%\mcp.json" >nul 2>&1
+    echo [Sync] mcp.json -^> %USER_CODEBUDDY%\mcp.json
+) else (
+    echo [Skip] mcp.json not found
+)
+echo(
+
+:: 计数器
+set "SUCCESS_COUNT=0"
+set "SKIP_COUNT=0"
+set "SKIPPED_DIRS="
+
+:: 逐行读取配置文件
+for /f "usebackq tokens=* delims=" %%a in ("%CONFIG_FILE%") do (
+    set "LINE=%%a"
+    
+    :: 跳过空行
+    if "!LINE!"=="" (
+        rem 空行跳过
     ) else (
-        echo [信息] 已取消操作。
-        pause
-        exit /b 0
+        :: 跳过注释行（以 # 开头）
+        set "FIRST_CHAR=!LINE:~0,1!"
+        if "!FIRST_CHAR!"=="#" (
+            rem 注释行跳过
+        ) else (
+            :: 处理目标目录
+            set "TARGET_DIR=!LINE!"
+            
+            echo ----------------------------------------
+            echo [处理] !TARGET_DIR!
+            
+            :: 检查目标目录是否存在
+            if not exist "!TARGET_DIR!" (
+                echo [Skip] Dir not found: !TARGET_DIR!
+                set /a SKIP_COUNT+=1
+                set "SKIPPED_DIRS=!SKIPPED_DIRS!!TARGET_DIR!|"
+            ) else (
+                :: 同步 commands 目录
+                if exist "%SOURCE_DIR%\commands" (
+                    xcopy "%SOURCE_DIR%\commands" "!TARGET_DIR!\commands\" /E /I /Y /Q >nul 2>&1
+                    echo [Sync] commands
+                )
+                
+                :: 同步 rules 目录
+                if exist "%SOURCE_DIR%\rules" (
+                    xcopy "%SOURCE_DIR%\rules" "!TARGET_DIR!\rules\" /E /I /Y /Q >nul 2>&1
+                    echo [Sync] rules
+                )
+                
+                :: 同步 skills 目录
+                if exist "%SOURCE_DIR%\skills" (
+                    xcopy "%SOURCE_DIR%\skills" "!TARGET_DIR!\skills\" /E /I /Y /Q >nul 2>&1
+                    echo [Sync] skills
+                )
+                
+                echo [Done] !TARGET_DIR!
+                set /a SUCCESS_COUNT+=1
+            )
+        )
     )
 )
 
-echo.
-echo [信息] 源目录: %SOURCE_DIR%
-echo [信息] 目标目录: %TARGET_DIR%
-echo.
-
-:: 同步 commands 目录
-if exist "%SOURCE_DIR%\commands" (
-    echo [同步] commands ...
-    xcopy "%SOURCE_DIR%\commands" "%TARGET_DIR%\commands\" /E /I /Y /Q
-    echo [完成] commands 同步成功
-) else (
-    echo [跳过] commands 目录不存在
-)
-
-:: 同步 rules 目录
-if exist "%SOURCE_DIR%\rules" (
-    echo [同步] rules ...
-    xcopy "%SOURCE_DIR%\rules" "%TARGET_DIR%\rules\" /E /I /Y /Q
-    echo [完成] rules 同步成功
-) else (
-    echo [跳过] rules 目录不存在
-)
-
-:: 同步 skills 目录
-if exist "%SOURCE_DIR%\skills" (
-    echo [同步] skills ...
-    xcopy "%SOURCE_DIR%\skills" "%TARGET_DIR%\skills\" /E /I /Y /Q
-    echo [完成] skills 同步成功
-) else (
-    echo [跳过] skills 目录不存在
-)
-
-echo.
+echo(
 echo ============================================
-echo   同步完成!
+echo   Sync completed!
+echo   Success: !SUCCESS_COUNT! dirs
+echo   Skipped: !SKIP_COUNT! dirs
+if not "!SKIPPED_DIRS!"=="" (
+    echo(
+    echo   Skipped directories:
+    for %%d in ("!SKIPPED_DIRS:|=" "!") do (
+        if not "%%~d"=="" echo     - %%~d
+    )
+)
 echo ============================================
 pause

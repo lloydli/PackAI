@@ -23,6 +23,8 @@ Skill 方式：编辑 SKILL.md → 保存 → 即时生效（$0，即时）
 PackAI/
 ├── commands/                # 命令模板
 │   └── commit-push-pr.md        # Git 提交/PR 工作流命令
+├── config/                  # 配置文件
+│   └── sync_project_paths.txt   # 同步目标路径配置
 ├── docs/                    # 文档
 │   ├── agent-skill-spec.md      # Skill 格式规范
 │   └── how-to-create-great-agent-skill.md  # Skill 设计指南
@@ -37,6 +39,7 @@ PackAI/
 │   ├── skill-creator/           # Skill 创建器
 │   ├── skill-judge/             # Skill 评审官
 │   └── UnrealCodeImitator/      # Unreal 源码学习与插件开发
+├── mcp.json                 # MCP 服务器配置（同步到用户目录）
 └── sync.bat                 # 同步工具脚本
 ```
 
@@ -120,15 +123,31 @@ Skill 的完整格式规范，包括：
 
 ## 同步工具
 
-运行 `sync.bat` 可将 `commands`、`rules`、`skills` 同步到指定的 IDE 项目配置目录（如 `.codebuddy`）：
+运行 `sync.bat` 可将 `commands`、`rules`、`skills` 同步到配置文件指定的项目目录，同时将 `mcp.json` 同步到用户配置目录：
 
 ```batch
 # 双击运行或命令行执行
 d:\PackAI\sync.bat
-
-# 按提示输入目标目录，例如：
-# C:\MyProject\.codebuddy
 ```
+
+### 配置说明
+
+编辑 `config/sync_project_paths.txt` 添加目标项目路径：
+
+```
+# 每行一个路径，# 开头为注释
+C:\MyProject\.codebuddy
+D:\AnotherProject\.codebuddy
+```
+
+### 同步内容
+
+| 源 | 目标 |
+|----|------|
+| `commands/` | `<项目>/.codebuddy/commands/` |
+| `rules/` | `<项目>/.codebuddy/rules/` |
+| `skills/` | `<项目>/.codebuddy/skills/` |
+| `mcp.json` | `%USERPROFILE%/.codebuddy/mcp.json` |
 
 ---
 

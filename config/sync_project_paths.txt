@@ -1,0 +1,8 @@
+# PackAI 同步目标工程目录列表
+# 每行一个目录路径，以 # 开头的行为注释
+# 示例：
+# C:\MyProject\.codebuddy
+# D:\Work\AnotherProject\.codebuddy
+
+E:\NL\Project\.codebuddy
+C:\Users\lloydli\OneDrive\Work\Test\.codebuddy

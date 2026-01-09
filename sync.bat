@@ -5,7 +5,6 @@ setlocal EnableDelayedExpansion
 echo ============================================
 echo   PackAI Sync Tool
 echo   Sync commands/rules/skills to project dirs
-echo   Sync mcp.json to user config dir
 echo ============================================
 echo(
 
@@ -26,20 +25,6 @@ if not exist "%CONFIG_FILE%" (
 
 echo [Info] Source: %SOURCE_DIR%
 echo [Info] Config: %CONFIG_FILE%
-echo(
-
-:: Sync mcp.json to user .codebuddy dir
-set "USER_CODEBUDDY=%USERPROFILE%\.codebuddy"
-if not exist "%USER_CODEBUDDY%" (
-    mkdir "%USER_CODEBUDDY%"
-    echo [Info] Created user config dir: %USER_CODEBUDDY%
-)
-if exist "%SOURCE_DIR%\mcp.json" (
-    copy /Y "%SOURCE_DIR%\mcp.json" "%USER_CODEBUDDY%\mcp.json" >nul 2>&1
-    echo [Sync] mcp.json -^> %USER_CODEBUDDY%\mcp.json
-) else (
-    echo [Skip] mcp.json not found
-)
 echo(
 
 :: 计数器
